@@ -46,7 +46,7 @@ function App() {
       const res = await axios.get(`${baseUrl}/api/${apiPath}/admin/products`);
       setProducts(res.data.products);
     } catch (error) {
-      alert(error?.response?.data?.error?.message);
+      alert(error.response.data.message);
     }
   }
 
@@ -58,11 +58,10 @@ function App() {
   // 確認使用者是否已登入
   const checkUserLogin = async () => {
     try {
-      const res = await axios.post(`${baseUrl}/api/user/check`);
+      await axios.post(`${baseUrl}/api/user/check`);
       alert("使用者已成功登入");
-      console.log(res);
     } catch (error) {
-      alert(error.data?.message);
+      alert(error.response.data.message);
     }
   }
 
@@ -90,7 +89,7 @@ function App() {
                       <th scope="row">{product.title}</th>
                       <td>{product.origin_price}</td>
                       <td>{product.price}</td>
-                      <td>{product.is_enabled}</td>
+                      <td>{product.is_enabled ? <span style={{color: "green"}}>已啟用</span> : "未啟用 "}</td>
                       <td>
                         <button
                           onClick={() => setTempProduct(product)}
